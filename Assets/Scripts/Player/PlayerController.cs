@@ -8,11 +8,11 @@ public class PlayerController : MonoBehaviour
     public bool allowDiagonalMovement = false;
     public LayerMask collisonLayer;
     public LayerMask interactableLayer;
-    public UIManager uiManager;
 
     private Vector2 input;
-    private bool isMoving;
     private Animator animator;
+    private bool isMoving;
+    private bool isDialogShown;
 
     private void Start()
     {
@@ -20,41 +20,46 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        //only allows input if the player is not moving
-        if (!isMoving)
+        //Disables character update when the dialog is shown
+        if (!isDialogShown)
         {
-            //get Movement Directions
-            input.x = Input.GetAxisRaw("Horizontal");
-            input.y = Input.GetAxisRaw("Vertical");
 
-            //Disable Diagonal Movement
-            if (!allowDiagonalMovement)
+            //only allows input if the player is not moving
+            if (!isMoving)
             {
-                if (input.x != 0) input.y = 0;
-            }
+                //get Movement Directions
+                input.x = Input.GetAxisRaw("Horizontal");
+                input.y = Input.GetAxisRaw("Vertical");
 
-            if (input != Vector2.zero)
-            {
-                //use the input values to animate the player
-                animator.SetFloat("MoveX", input.x);
-                animator.SetFloat("MoveY", input.y);
-
-                //Add the input vector to the current position
-                var targetPos = transform.position;
-                targetPos.x += input.x;
-                targetPos.y += input.y;
-                
-                //allow movement only if the player is moving outside the collision layers
-                if (IsWalkable(targetPos))
+                //Disable Diagonal Movement
+                if (!allowDiagonalMovement)
                 {
-                    StartCoroutine(Move(targetPos));
+                    if (input.x != 0) input.y = 0;
+                }
+
+                if (input != Vector2.zero)
+                {
+                    //use the input values to animate the player
+                    animator.SetFloat("MoveX", input.x);
+                    animator.SetFloat("MoveY", input.y);
+
+                    //Add the input vector to the current position
+                    var targetPos = transform.position;
+                    targetPos.x += input.x;
+                    targetPos.y += input.y;
+
+                    //allow movement only if the player is moving outside the collision layers
+                    if (IsWalkable(targetPos))
+                    {
+                        StartCoroutine(Move(targetPos));
+                    }
                 }
             }
-        }
-        animator.SetBool("isMoving", isMoving);
+            animator.SetBool("isMoving", isMoving);
 
-        Interact();
-        
+
+            Interact();
+        }
 
     }
 
@@ -86,22 +91,30 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Interact() {
+    private void Interact()
+    {
         var facingDir = new Vector3(animator.GetFloat("MoveX"), animator.GetFloat("MoveY"));
         var interactablePos = transform.position + facingDir;
-        Debug.DrawLine(transform.position , interactablePos , Color.red , 0.5f);
+        Debug.DrawLine(transform.position, interactablePos, Color.red, 0.5f);
 
         var collider = Physics2D.OverlapCircle(interactablePos, 0.3f, interactableLayer);
         if (collider)
         {
-            uiManager.showXIconHint();
+            if (!isDialogShown)
+            {
+                UIManager.Instance.showXIconHint();
+            }
             if (Input.GetKey(KeyCode.X))
             {
+                isDialogShown = true;
+                UIManager.Instance.hideXIconHint();
                 collider.GetComponent<IInteractable>()?.Interact();
             }
         }
-        else {
-            uiManager.hideXIconHint();
+        else
+        {
+            isDialogShown = false;
+            UIManager.Instance.hideXIconHint();
         }
     }
 }
