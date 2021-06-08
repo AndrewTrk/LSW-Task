@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags: []
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Collision
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 128620625
+    locked: 0
+  - name: MidGroundCollision
+    uniqueID: 2488846099
+    locked: 0
+  - name: ForegroundCollision
+    uniqueID: 3528689851
+    locked: 0
+  - name: WalkableBridge
+    uniqueID: 4130794275
+    locked: 0
+  - name: Player
+    uniqueID: 2185052977
+    locked: 0
