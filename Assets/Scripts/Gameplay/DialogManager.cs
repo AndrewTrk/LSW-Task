@@ -8,6 +8,8 @@ public class DialogManager : MonoBehaviour
     public GameObject dialogBox;
     public Text dialogueText;
     public float letterPerSec;
+    public Image spaceIcon;
+
 
     private int currentLine=0;
     private bool isTyping = false;
@@ -31,7 +33,8 @@ public class DialogManager : MonoBehaviour
     private void Update()
     {
         //Next  Line
-        if (Input.GetKey(KeyCode.Space)) {
+        if (Input.GetKey(KeyCode.Space) && dialog!=null) {
+            spaceIcon.gameObject.SetActive(false);
             if (!isTyping)
             {
                 if (currentLine < dialog.Lines.Count)
@@ -54,6 +57,7 @@ public class DialogManager : MonoBehaviour
             dialogueText.text += letter;
             yield return new WaitForSeconds(1f / letterPerSec);
         }
+        spaceIcon.gameObject.SetActive(true);
         currentLine++;
         isTyping = false;
     }
