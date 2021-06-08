@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public GameObject xIcon;
+    public GameObject itemsShop;
+    public Text CoinsText;
 
     public static UIManager Instance { get; private set; }
 
@@ -12,12 +15,22 @@ public class UIManager : MonoBehaviour
     {
         Instance = this;
     }
-    public void showXIconHint() {
+    public void ShowXIconHint() {
         xIcon.SetActive(true);
     }
-    public void hideXIconHint()
+    public void HideXIconHint()
     {
         xIcon.SetActive(false);
+    }public void ShowitemsShop() {
+        itemsShop.SetActive(true);
+    }
+    public void HideitemsShop()
+    {
+        itemsShop.SetActive(false);
+    }
+
+    public void setCoinsText(int coins) {
+        CoinsText.text = coins.ToString();
     }
 
 }

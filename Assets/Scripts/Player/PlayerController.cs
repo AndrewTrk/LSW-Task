@@ -16,12 +16,14 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        UIManager.Instance.setCoinsText(InventoryManager.Instance.Coins);
         animator = GetComponent<Animator>();
 
         //subscribe to the onDialogDismissed event
         DialogManager.Instance.onDialogDismissed += () =>
         {
             isDialogShown = false;
+            UIManager.Instance.ShowitemsShop();
         };
     }
     void Update()
@@ -108,19 +110,23 @@ public class PlayerController : MonoBehaviour
         {
             if (!isDialogShown)
             {
-                UIManager.Instance.showXIconHint();
+                UIManager.Instance.ShowXIconHint();
             }
             if (Input.GetKey(KeyCode.X))
             {
                 isDialogShown = true;
-                UIManager.Instance.hideXIconHint();
+                UIManager.Instance.HideXIconHint();
                 collider.GetComponent<IInteractable>()?.Interact();
             }
         }
         else
         {
             isDialogShown = false;
-            UIManager.Instance.hideXIconHint();
+            UIManager.Instance.HideXIconHint();
         }
+    }
+
+    public void equib(ShopItem item) {
+        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = item.icon;
     }
 }
