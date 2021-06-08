@@ -9,7 +9,9 @@ public class DialogManager : MonoBehaviour
     public Text dialogueText;
     public float letterPerSec;
 
+    private int currentLine=0;
     private bool isTyping = false;
+    Dialog dialog;
     public static DialogManager Instance { get; private set; }
 
     private void Awake()
@@ -18,10 +20,28 @@ public class DialogManager : MonoBehaviour
     }
     public void ShowDialog(Dialog dialog)
     {
+        this.dialog = dialog;
         dialogBox.SetActive(true);
         if (!isTyping)
         {
-            StartCoroutine(TypeAnimation(dialog.Lines[0]));
+            StartCoroutine(TypeAnimation(dialog.Lines[currentLine]));
+        }
+    }
+
+    private void Update()
+    {
+        //Next  Line
+        if (Input.GetKey(KeyCode.Space)) {
+            if (!isTyping)
+            {
+                if (currentLine < dialog.Lines.Count)
+                {
+                    StartCoroutine(TypeAnimation(dialog.Lines[currentLine]));
+                }
+                else {
+                    Debug.Log("Send Dialog End Event");
+                }
+                }
         }
     }
 
@@ -34,6 +54,7 @@ public class DialogManager : MonoBehaviour
             dialogueText.text += letter;
             yield return new WaitForSeconds(1f / letterPerSec);
         }
+        currentLine++;
         isTyping = false;
     }
 }
