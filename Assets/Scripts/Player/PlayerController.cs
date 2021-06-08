@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
         DialogManager.Instance.onDialogDismissed += () =>
         {
             isDialogShown = false;
-            Debug.Log("onDialogDismissed");
         };
     }
     void Update()
