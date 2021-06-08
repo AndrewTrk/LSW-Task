@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,12 +17,19 @@ public class DialogManager : MonoBehaviour
     Dialog dialog;
     public static DialogManager Instance { get; private set; }
 
+    public event Action onDialogshown;  
+    public event Action onDialogDismissed; 
+    
     private void Awake()
     {
         Instance = this;
     }
     public void ShowDialog(Dialog dialog)
     {
+        currentLine = 0;
+        //broadcast dialog shown event
+        onDialogshown?.Invoke();
+
         this.dialog = dialog;
         dialogBox.SetActive(true);
         if (!isTyping)
@@ -32,7 +40,7 @@ public class DialogManager : MonoBehaviour
 
     private void Update()
     {
-        //Next  Line
+        //start animating the text in the Next Line of the dialog when space key is pressed
         if (Input.GetKey(KeyCode.Space) && dialog!=null) {
             spaceIcon.gameObject.SetActive(false);
             if (!isTyping)
@@ -42,7 +50,9 @@ public class DialogManager : MonoBehaviour
                     StartCoroutine(TypeAnimation(dialog.Lines[currentLine]));
                 }
                 else {
-                    Debug.Log("Send Dialog End Event");
+                    //broadcast dialog dismissed event
+                    dialogBox.SetActive(false);
+                    onDialogDismissed?.Invoke();
                 }
                 }
         }
@@ -50,6 +60,7 @@ public class DialogManager : MonoBehaviour
 
     private IEnumerator TypeAnimation(string line)
     {
+        //add letter by letter to the dialog text box
         isTyping = true;
         dialogueText.text = "";
         foreach (var letter in line.ToCharArray())

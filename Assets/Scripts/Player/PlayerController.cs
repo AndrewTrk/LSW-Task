@@ -17,6 +17,13 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
+
+        //subscribe to the onDialogDismissed event
+        DialogManager.Instance.onDialogDismissed += () =>
+        {
+            isDialogShown = false;
+            Debug.Log("onDialogDismissed");
+        };
     }
     void Update()
     {
