@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5;
     public bool allowDiagonalMovement = false;
     public LayerMask collisonLayer;
+    public LayerMask interactableLayer;
+    public UIManager uiManager;
 
     private Vector2 input;
     private bool isMoving;
@@ -35,7 +37,7 @@ public class PlayerController : MonoBehaviour
             {
                 //use the input values to animate the player
                 animator.SetFloat("MoveX", input.x);
-                animator.SetFloat("MoveX", input.x);
+                animator.SetFloat("MoveY", input.y);
 
                 //Add the input vector to the current position
                 var targetPos = transform.position;
@@ -43,13 +45,17 @@ public class PlayerController : MonoBehaviour
                 targetPos.y += input.y;
                 
                 //allow movement only if the player is moving outside the collision layers
-                if (isWalkable(targetPos))
+                if (IsWalkable(targetPos))
                 {
                     StartCoroutine(Move(targetPos));
                 }
             }
         }
         animator.SetBool("isMoving", isMoving);
+
+        Interact();
+        
+
     }
 
     //Smoothing the Player Movement till reaches the Target Position
@@ -67,16 +73,35 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    //Checks if the player is moving outside the collision layers or not
-    private bool isWalkable(Vector3 targetPos)
+    //Checks if the player is moving outside the collision and interactable layers or not
+    private bool IsWalkable(Vector3 targetPos)
     {
-        if (Physics2D.OverlapCircle(targetPos, 0.15f, collisonLayer) != null)
+        if (Physics2D.OverlapCircle(targetPos, 0.15f, collisonLayer | interactableLayer) != null)
         {
             return false;
         }
         else
         {
             return true;
+        }
+    }
+
+    private void Interact() {
+        var facingDir = new Vector3(animator.GetFloat("MoveX"), animator.GetFloat("MoveY"));
+        var interactablePos = transform.position + facingDir;
+        Debug.DrawLine(transform.position , interactablePos , Color.red , 0.5f);
+
+        var collider = Physics2D.OverlapCircle(interactablePos, 0.3f, interactableLayer);
+        if (collider)
+        {
+            uiManager.showXIconHint();
+            if (Input.GetKey(KeyCode.X))
+            {
+                collider.GetComponent<IInteractable>()?.Interact();
+            }
+        }
+        else {
+            uiManager.hideXIconHint();
         }
     }
 }
