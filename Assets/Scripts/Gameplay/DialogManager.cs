@@ -33,6 +33,8 @@ public class DialogManager : MonoBehaviour
 
         this.dialog = dialog;
         dialogBox.SetActive(true);
+        spaceIcon.gameObject.SetActive(false);
+        enterIcon.gameObject.SetActive(false);
         if (!isTyping)
         {
             StartCoroutine(TypeAnimation(dialog.Lines[currentLine] , currentLine));
