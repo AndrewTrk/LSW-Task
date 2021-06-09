@@ -46,6 +46,8 @@ public class ShopManger : MonoBehaviour
                 previewImage.GetComponent<Image>().sprite = item.icon;
                 previewImage.gameObject.SetActive(true);
                 Player.GetComponent<PlayerController>().equip(item);
+                previewImage.GetComponent<Image>().sprite = item.icon;
+                previewImage.gameObject.SetActive(true);
                 Debug.Log("You already Have This Item in your Bag " + item.name);
                 return;
             }
