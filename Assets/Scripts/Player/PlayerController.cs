@@ -18,7 +18,12 @@ public class PlayerController : MonoBehaviour
     {
         UIManager.Instance.setCoinsText(InventoryManager.Instance.Coins);
         animator = GetComponent<Animator>();
-
+        UIManager.Instance.onShopClosed += () => {
+            isDialogShown = false;
+        };
+        UIManager.Instance.onShopOpened += () => {
+            isDialogShown = true;
+        };
         //subscribe to the onDialogDismissed event
         DialogManager.Instance.onDialogDismissed += () =>
         {

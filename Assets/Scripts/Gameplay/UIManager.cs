@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,9 @@ public class UIManager : MonoBehaviour
     public GameObject xIcon;
     public GameObject itemsShop;
     public Text CoinsText;
+
+    public event Action onShopClosed; 
+    public event Action onShopOpened; 
 
     public static UIManager Instance { get; private set; }
 
@@ -22,10 +26,12 @@ public class UIManager : MonoBehaviour
     {
         xIcon.SetActive(false);
     }public void ShowitemsShop() {
+        onShopOpened?.Invoke();
         itemsShop.SetActive(true);
     }
     public void HideitemsShop()
     {
+        onShopClosed?.Invoke();
         itemsShop.SetActive(false);
     }
 
