@@ -634,7 +634,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 329262448}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2055330650}
+        m_TargetAssemblyTypeName: InventoryManager, Assembly-CSharp
+        m_MethodName: RemoveItem
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 3f55ddac273cc994598c488f839aaf07, type: 2}
+          m_ObjectArgumentAssemblyTypeName: ShopItem, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &384581366
 GameObject:
   m_ObjectHideFlags: 0
@@ -30078,7 +30090,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1365803136
 RectTransform:
   m_ObjectHideFlags: 0
@@ -31334,7 +31346,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1717769590}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2055330650}
+        m_TargetAssemblyTypeName: InventoryManager, Assembly-CSharp
+        m_MethodName: RemoveItem
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 219f87af7c9a4534e94242f28e6ff227, type: 2}
+          m_ObjectArgumentAssemblyTypeName: ShopItem, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1751539928
 GameObject:
   m_ObjectHideFlags: 0
@@ -34448,7 +34472,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2011203561}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2055330650}
+        m_TargetAssemblyTypeName: InventoryManager, Assembly-CSharp
+        m_MethodName: RemoveItem
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 15f2a27d0b9606b4f921e2303914d55d, type: 2}
+          m_ObjectArgumentAssemblyTypeName: ShopItem, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2055330649
 GameObject:
   m_ObjectHideFlags: 0
@@ -34478,6 +34514,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8108e9ae6c27384c810c47e2af326a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 1613949128}
+  shopManager: {fileID: 1365803137}
   CollectedItems: []
   hat1: {fileID: 2073085478}
   hat2: {fileID: 807304805}
@@ -34771,4 +34809,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2097012153}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2055330650}
+        m_TargetAssemblyTypeName: InventoryManager, Assembly-CSharp
+        m_MethodName: RemoveItem
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: b2e7cbb21d95ebe41a03a92c17058e38, type: 2}
+          m_ObjectArgumentAssemblyTypeName: ShopItem, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

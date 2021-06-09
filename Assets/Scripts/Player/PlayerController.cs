@@ -134,4 +134,9 @@ public class PlayerController : MonoBehaviour
     public void equib(ShopItem item) {
         transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = item.icon;
     }
+
+    public void unequib(ShopItem item)
+    {
+        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
+    }
 }
