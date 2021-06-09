@@ -39,33 +39,39 @@ public class ShopManger : MonoBehaviour
 
     void TryBuy(ShopItem item)
     {
-        if (InventoryManager.Instance.Coins >= item.coins)
+
+        if (InventoryManager.Instance.GetIventoryItems().Contains(item))
         {
-            if (InventoryManager.Instance.GetIventoryItems().Contains(item))
-            {
-                previewImage.GetComponent<Image>().sprite = item.icon;
-                previewImage.gameObject.SetActive(true);
-                Player.GetComponent<PlayerController>().equip(item);
-                previewImage.GetComponent<Image>().sprite = item.icon;
-                previewImage.gameObject.SetActive(true);
-                Debug.Log("You already Have This Item in your Bag " + item.name);
-                return;
-            }
-
-            Debug.Log("Equibed " + item.name);
-
-            InventoryManager.Instance.Coins -= item.coins;
-            InventoryManager.Instance.CollectItem(item);
-            UIManager.Instance.setCoinsText(InventoryManager.Instance.Coins);
             previewImage.GetComponent<Image>().sprite = item.icon;
             previewImage.gameObject.SetActive(true);
             Player.GetComponent<PlayerController>().equip(item);
+            previewImage.GetComponent<Image>().sprite = item.icon;
+            previewImage.gameObject.SetActive(true);
+            Debug.Log("You already Have This Item in your Bag " + item.name);
+            return;
         }
         else
         {
-            Debug.Log("You don't have enought money " + item.name);
+            if (InventoryManager.Instance.Coins >= item.coins)
+            {
+                Debug.Log("Equibed " + item.name);
 
+                InventoryManager.Instance.Coins -= item.coins;
+                InventoryManager.Instance.CollectItem(item);
+                UIManager.Instance.setCoinsText(InventoryManager.Instance.Coins);
+                previewImage.GetComponent<Image>().sprite = item.icon;
+                previewImage.gameObject.SetActive(true);
+                Player.GetComponent<PlayerController>().equip(item);
+            }
+            else
+            {
+                Debug.Log("You don't have enought money " + item.name);
+
+            }
+        
         }
+
+        
 
 
     }

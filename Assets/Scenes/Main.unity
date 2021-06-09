@@ -34758,7 +34758,7 @@ MonoBehaviour:
   hat2: {fileID: 807304805}
   hat3: {fileID: 1847287734}
   hat4: {fileID: 807690989}
-  initalCoins: 100
+  initalCoins: 1000
 --- !u!4 &2055330651
 Transform:
   m_ObjectHideFlags: 0
