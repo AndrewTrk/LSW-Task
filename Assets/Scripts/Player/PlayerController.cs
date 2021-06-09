@@ -25,10 +25,21 @@ public class PlayerController : MonoBehaviour
             isDialogShown = true;
         };
         //subscribe to the onDialogDismissed event
-        DialogManager.Instance.onDialogDismissed += () =>
+        DialogManager.Instance.onDialogDismissed += (x) =>
         {
-            isDialogShown = false;
-            UIManager.Instance.ShowitemsShop();
+            // x is the value we got from the subscribed event as follows:
+            // 0: player clicked skip on the shop dialog so the shop is not opened and resume player interactions 
+            // 1: player clicked Enter on the shop dialog so the shop is opened and pause player interactions 
+
+            if (x == 0)
+            {
+                isDialogShown = false;
+            }
+            else
+            {
+                isDialogShown = false;
+                UIManager.Instance.ShowitemsShop();
+            }
         };
     }
     void Update()

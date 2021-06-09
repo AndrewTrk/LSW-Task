@@ -50,25 +50,28 @@ public class InventoryManager : MonoBehaviour
     
     public void RemoveItem(ShopItem soldItem)
     {
-        shopManager.SellItem(soldItem);
-        Coins += soldItem.coins;
-        UIManager.Instance.setCoinsText(Coins);
-        Player.GetComponent<PlayerController>().unequip(soldItem);
-        CollectedItems.Remove(soldItem);
-        switch (soldItem.itemName)
+        if (CollectedItems.Contains(soldItem))
         {
-            case "Cap":
-                hat3.SetActive(false);
-                break;
-            case "Cowboy Hat":
-                hat4.SetActive(false);
-                break;
-            case "Pirate's Hat":
-                hat1.SetActive(false);
-                break;
-            case "Yellow Helmet":
-                hat2.SetActive(false);
-                break;
+            shopManager.SellItem(soldItem);
+            Coins += soldItem.coins;
+            UIManager.Instance.setCoinsText(Coins);
+            Player.GetComponent<PlayerController>().unequip(soldItem);
+            CollectedItems.Remove(soldItem);
+            switch (soldItem.itemName)
+            {
+                case "Cap":
+                    hat3.SetActive(false);
+                    break;
+                case "Cowboy Hat":
+                    hat4.SetActive(false);
+                    break;
+                case "Pirate's Hat":
+                    hat1.SetActive(false);
+                    break;
+                case "Yellow Helmet":
+                    hat2.SetActive(false);
+                    break;
+            }
         }
     }
 

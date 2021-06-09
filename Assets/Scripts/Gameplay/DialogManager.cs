@@ -10,6 +10,7 @@ public class DialogManager : MonoBehaviour
     public Text dialogueText;
     public float letterPerSec;
     public Image spaceIcon;
+    public RectTransform enterIcon;
 
 
     private int currentLine=0;
@@ -18,7 +19,7 @@ public class DialogManager : MonoBehaviour
     public static DialogManager Instance { get; private set; }
 
     public event Action onDialogshown;  
-    public event Action onDialogDismissed; 
+    public event Action<int> onDialogDismissed; 
     
     private void Awake()
     {
@@ -34,7 +35,7 @@ public class DialogManager : MonoBehaviour
         dialogBox.SetActive(true);
         if (!isTyping)
         {
-            StartCoroutine(TypeAnimation(dialog.Lines[currentLine]));
+            StartCoroutine(TypeAnimation(dialog.Lines[currentLine] , currentLine));
         }
     }
 
@@ -47,18 +48,33 @@ public class DialogManager : MonoBehaviour
             {
                 if (currentLine < dialog.Lines.Count)
                 {
-                    StartCoroutine(TypeAnimation(dialog.Lines[currentLine]));
+                    StartCoroutine(TypeAnimation(dialog.Lines[currentLine],currentLine));
                 }
                 else {
-                    //broadcast dialog dismissed event
                     dialogBox.SetActive(false);
-                    onDialogDismissed?.Invoke();
+                    enterIcon.gameObject.SetActive(false);
+                    onDialogDismissed?.Invoke(0);
                 }
+                
+                
                 }
+        }
+
+        if (Input.GetKey(KeyCode.Return) && dialog != null && !isTyping)
+        {
+            if (currentLine == dialog.Lines.Count)
+            {
+                currentLine = 0;
+                //enterIcon.gameObject.SetActive(true);
+                dialogBox.SetActive(false);
+                enterIcon.gameObject.SetActive(false);
+                onDialogDismissed?.Invoke(1);
+            }
+ 
         }
     }
 
-    private IEnumerator TypeAnimation(string line)
+    private IEnumerator TypeAnimation(string line, int linenumber)
     {
         //add letter by letter to the dialog text box
         isTyping = true;
@@ -69,7 +85,13 @@ public class DialogManager : MonoBehaviour
             yield return new WaitForSeconds(1f / letterPerSec);
         }
         spaceIcon.gameObject.SetActive(true);
+        //Debug.Log("Animated in Line" + currentLine);
+        if (linenumber == 2) {
+            enterIcon.gameObject.SetActive(true);
+        }
         currentLine++;
         isTyping = false;
     }
+
+    
 }
