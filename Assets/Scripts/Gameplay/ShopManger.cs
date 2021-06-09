@@ -45,7 +45,7 @@ public class ShopManger : MonoBehaviour
             {
                 previewImage.GetComponent<Image>().sprite = item.icon;
                 previewImage.gameObject.SetActive(true);
-                Player.GetComponent<PlayerController>().equib(item);
+                Player.GetComponent<PlayerController>().equip(item);
                 Debug.Log("You already Have This Item in your Bag " + item.name);
                 return;
             }
@@ -57,7 +57,7 @@ public class ShopManger : MonoBehaviour
             UIManager.Instance.setCoinsText(InventoryManager.Instance.Coins);
             previewImage.GetComponent<Image>().sprite = item.icon;
             previewImage.gameObject.SetActive(true);
-            Player.GetComponent<PlayerController>().equib(item);
+            Player.GetComponent<PlayerController>().equip(item);
         }
         else
         {

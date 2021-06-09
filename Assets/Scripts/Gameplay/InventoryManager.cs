@@ -53,7 +53,7 @@ public class InventoryManager : MonoBehaviour
         shopManager.SellItem(soldItem);
         Coins += soldItem.coins;
         UIManager.Instance.setCoinsText(Coins);
-        Player.GetComponent<PlayerController>().unequib(soldItem);
+        Player.GetComponent<PlayerController>().unequip(soldItem);
         CollectedItems.Remove(soldItem);
         switch (soldItem.itemName)
         {
